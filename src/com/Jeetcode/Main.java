@@ -18,6 +18,7 @@ public class Main {
         int playerSpeed;
         int playerStamina;
         boolean playerIsAlive;
+        boolean playerMagicAbility;
 
         // Monster
         String monsterName;
@@ -39,6 +40,7 @@ public class Main {
         playerSpeed = 3;
         playerStamina = 10;
         playerIsAlive = true;
+        playerMagicAbility = true;
 
         // STATS FOR MONSTER
         monsterName = "Jozha";
@@ -57,6 +59,7 @@ public class Main {
         // Svaki novi turn, turn se mora povecati za 1
         while (playerIsAlive == true && monsterIsAlive == true) {
 
+
             // Event 1
 
             turn += 1;
@@ -71,8 +74,7 @@ public class Main {
             // Event 2
 
             turn += 1;
-            System.out.println("Turn" + turn);
-
+            System.out.println("Turn:" + turn);
 
             playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage);
 
@@ -84,9 +86,32 @@ public class Main {
             turn += 1;
             System.out.println("Turn:" + turn);
 
-            System.out.println(playerName + " your turn! ");
-            System.out.println(playerName + " tries to defend! ");
 
+            playerHealth = defensePlayer(playerName, monsterName, playerDefense, monsterDamage, playerHealth);
+
+
+            System.out.println("=======================================");
+
+
+            // Event 4
+
+            turn += 1;
+            System.out.println("Turn:" + turn);
+
+
+            playerHealth = healMagic(playerName, playerMana, playerHealth);
+            playerMana = healMagicCost(playerName, playerMana);
+
+
+            System.out.println("=======================================");
+
+
+            // Event 5
+
+            turn += 1;
+            System.out.println("Turn:" + turn);
+
+            playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage);
 
             System.out.println("=======================================");
 
@@ -101,8 +126,14 @@ public class Main {
 
             }
 
+            if (playerMana <= 0) {
+                playerMagicAbility = false;
+                System.out.println(playerName + " have not enough mana to cast spells ! ");
+            }
 
         }
+
+
     }
 
 
@@ -131,7 +162,7 @@ public class Main {
 
 
         int result;
-        result = defenderHealth - (attackerDamage * 2);
+        result = defenderHealth - (attackerDamage * 1);
 
         System.out.println(defenderName + " lost " + attackerDamage * 2 + " health points! ");
         System.out.println(defenderName + " now has " + result + " health points!");
@@ -140,6 +171,69 @@ public class Main {
 
     }
 
+
+    public static int healMagic(String playerName, int playerMana, int playerHealth) {
+
+        System.out.println(playerName + " your turn! ");
+        System.out.println(playerName + " Use health magic spell ");
+
+        if (playerMana <= 0) {
+            System.out.println(playerName + " Can't cast the spell ");
+        } else if (playerMana >= 0) {
+
+
+            int playerManaCost = playerMana - 1;
+            int healthMagic = playerHealth + 1;
+
+
+            System.out.println(playerName + " Had heal himself with magic ");
+            System.out.println(playerName + " now gain " + healthMagic + " health !");
+            return healthMagic;
+        }
+
+
+        return playerMana;
+
+    }
+
+
+    public static int healMagicCost(String playerName, int playerMana) {
+        if (playerMana <= 0) {
+            System.out.println(playerName + "Don't have enough mana");
+        } else if (playerMana >= 0)
+
+
+            playerMana = playerMana - 1;
+
+        System.out.println(playerName + " have " + playerMana + " mana ");
+
+        return playerMana;
+
+    }
+
+
+    public static int defensePlayer(String playerName, String attackerName, int playerDefense, int attackerDamage, int playerHealth) {
+        System.out.println(playerName + " your turn! ");
+        System.out.println(playerName + " try to defense himself  ");
+
+
+        int playerHealthCalculation = attackerDamage - playerDefense;
+
+        int playerHealthremain = playerHealth - playerHealthCalculation;
+
+
+        System.out.println(playerName + " defends himself from " + attackerName);
+        System.out.println(playerName + " lost " + playerHealthCalculation + " hp ");
+        System.out.println(playerName + " have now " + playerHealthremain + " health  ");
+
+        return playerHealthCalculation;
+
+    }
+
+
 }
+
+
+
 
 
