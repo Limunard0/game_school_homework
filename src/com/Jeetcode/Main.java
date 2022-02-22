@@ -126,10 +126,6 @@ public class Main {
 
             }
 
-            if (playerMana <= 0) {
-                playerMagicAbility = false;
-                System.out.println(playerName + " have not enough mana to cast spells ! ");
-            }
 
         }
 
@@ -175,18 +171,18 @@ public class Main {
     public static int healMagic(String playerName, int playerMana, int playerHealth) {
 
         System.out.println(playerName + " your turn! ");
-        System.out.println(playerName + " Use health magic spell ");
+
 
         if (playerMana <= 0) {
             System.out.println(playerName + " Can't cast the spell ");
         } else if (playerMana >= 0) {
-
+            System.out.println(playerName + " Use health magic spell ");
 
             int playerManaCost = playerMana - 1;
             int healthMagic = playerHealth + 1;
 
 
-            System.out.println(playerName + " Had heal himself with magic ");
+            System.out.println(playerName + " Have healed himself with a magic ");
             System.out.println(playerName + " now gain " + healthMagic + " health !");
             return healthMagic;
         }
@@ -199,7 +195,7 @@ public class Main {
 
     public static int healMagicCost(String playerName, int playerMana) {
         if (playerMana <= 0) {
-            System.out.println(playerName + "Don't have enough mana");
+            System.out.println(playerName + " Don't have enough mana ");
         } else if (playerMana >= 0)
 
 
