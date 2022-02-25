@@ -49,6 +49,7 @@ public class Main {
         monsterSpeed = 4;
         monsterStamina = 12;
         monsterIsAlive = true;
+        monsterDefense = 1;
 
 
         // STATS FOR GAME FUNCTIONS
@@ -62,32 +63,31 @@ public class Main {
 
             // Event 1
 
-            turn += 1;
-            System.out.println("Turn:" + turn);
+            turn = turnCounter(turn);
 
 
-            monsterHealth = lightAttack(playerName, monsterName, playerStamina, monsterHealth, playerDamage);
+            monsterHealth = lightAttack(playerName, monsterName, playerStamina, monsterHealth, playerDamage, monsterDefense);
 
 
             System.out.println("=======================================");
 
             // Event 2
 
-            turn += 1;
-            System.out.println("Turn:" + turn);
+            turn = turnCounter(turn);
 
-            playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage);
+
+            playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerDefense);
 
 
             System.out.println("=======================================");
 
             // Event 3
 
-            turn += 1;
-            System.out.println("Turn:" + turn);
+            turn = turnCounter(turn);
 
 
-            playerHealth = defensePlayer(playerName, monsterName, playerDefense, monsterDamage, playerHealth);
+            playerHealth = healMagic(playerName, playerMana, playerHealth);
+            playerMana = healMagicCost(playerName, playerMana, playerHealth);
 
 
             System.out.println("=======================================");
@@ -95,12 +95,10 @@ public class Main {
 
             // Event 4
 
-            turn += 1;
-            System.out.println("Turn:" + turn);
+            turn = turnCounter(turn);
 
 
-            playerHealth = healMagic(playerName, playerMana, playerHealth);
-            playerMana = healMagicCost(playerName, playerMana);
+            monsterHealth = lightAttack(playerName, monsterName, playerStamina, monsterHealth, playerDamage, monsterDefense);
 
 
             System.out.println("=======================================");
@@ -108,16 +106,17 @@ public class Main {
 
             // Event 5
 
-            turn += 1;
-            System.out.println("Turn:" + turn);
+            turn = turnCounter(turn);
 
-            playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage);
+
+            playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerDefense);
 
             System.out.println("=======================================");
 
 
             if (playerHealth <= 0) {
                 playerIsAlive = false;
+                playerMana = 0;
                 System.out.println(playerName + " is dead! ");
             } else if (monsterHealth <= 0) {
                 monsterIsAlive = false;
@@ -135,35 +134,33 @@ public class Main {
 
     //========================= G A M E   F U N C T I O N S =========================================
 
-    public static int lightAttack(String attackerName, String defenderName, int attackerStamina, int defenderHealth, int attackerDamage) {
+    public static int lightAttack(String attackerName, String defenderName, int attackerStamina, int defenderHealth, int attackerDamage, int defenderDefense) {
         System.out.println(attackerName + " Your turn! ");
         System.out.println(attackerName + " Tries to light attack " + defenderName);
-        int result;
 
 
-        result = defenderHealth - attackerDamage;
+        defenderHealth -= (attackerDamage - defenderDefense);
 
 
-        System.out.println(defenderName + " lost " + attackerDamage + " Health points! ");
-        System.out.println(defenderName + " now has " + result + " Health points! ");
+        System.out.println(defenderName + " lost " + (attackerDamage - defenderDefense) + " Health points! ");
+        System.out.println(defenderName + " now has " + defenderHealth + " Health points! ");
 
-        return result;
+        return defenderHealth;
 
 
     }
 
-    public static int heavyAttack(String attackerName, String defenderName, int attackerStamina, int defenderHealth, int attackerDamage) {
+    public static int heavyAttack(String attackerName, String defenderName, int attackerStamina, int defenderHealth, int attackerDamage, int defenderDefense) {
         System.out.println(attackerName + " your turn! ");
         System.out.println(attackerName + " tries to heavy attack " + defenderName);
 
 
-        int result;
-        result = defenderHealth - (attackerDamage * 1);
+        defenderHealth -= ((attackerDamage * 2) - defenderDefense);
 
-        System.out.println(defenderName + " lost " + attackerDamage * 2 + " health points! ");
-        System.out.println(defenderName + " now has " + result + " health points!");
+        System.out.println(defenderName + " lost " + ((attackerDamage * 2) - defenderDefense) + " health points! ");
+        System.out.println(defenderName + " now has " + defenderHealth + " health points!");
 
-        return result;
+        return defenderHealth;
 
     }
 
@@ -173,33 +170,31 @@ public class Main {
         System.out.println(playerName + " your turn! ");
 
 
-        if (playerMana <= 0) {
+        if (playerMana < 1 || playerHealth <= 0) {
             System.out.println(playerName + " Can't cast the spell ");
-        } else if (playerMana >= 0) {
+            return playerMana;
+        } else
             System.out.println(playerName + " Use health magic spell ");
 
-            int playerManaCost = playerMana - 1;
-            int healthMagic = playerHealth + 1;
+
+        int healthMagic = playerHealth + 1;
 
 
-            System.out.println(playerName + " Have healed himself with a magic ");
-            System.out.println(playerName + " now gain " + healthMagic + " health !");
-            return healthMagic;
-        }
-
-
-        return playerMana;
-
+        System.out.println(playerName + " Have healed himself with a magic ");
+        System.out.println(playerName + " Has gain +1 HP ");
+        System.out.println(playerName + " now has " + healthMagic + " health !");
+        return healthMagic;
     }
 
 
-    public static int healMagicCost(String playerName, int playerMana) {
-        if (playerMana <= 0) {
+    public static int healMagicCost(String playerName, int playerMana, int playerHealth) {
+        if (playerMana <= 0 || playerHealth <= 0) {
             System.out.println(playerName + " Don't have enough mana ");
-        } else if (playerMana >= 0)
+            return playerHealth;
+        } else
 
 
-            playerMana = playerMana - 1;
+            playerMana -= 1;
 
         System.out.println(playerName + " have " + playerMana + " mana ");
 
@@ -207,27 +202,17 @@ public class Main {
 
     }
 
+    public static int turnCounter(int turn) {
+        turn += 1;
 
-    public static int defensePlayer(String playerName, String attackerName, int playerDefense, int attackerDamage, int playerHealth) {
-        System.out.println(playerName + " your turn! ");
-        System.out.println(playerName + " try to defense himself  ");
-
-
-        int playerHealthCalculation = attackerDamage - playerDefense;
-
-        int playerHealthremain = playerHealth - playerHealthCalculation;
-
-
-        System.out.println(playerName + " defends himself from " + attackerName);
-        System.out.println(playerName + " lost " + playerHealthCalculation + " hp ");
-        System.out.println(playerName + " have now " + playerHealthremain + " health  ");
-
-        return playerHealthCalculation;
+        System.out.println("Turn:" + turn);
+        return turn;
 
     }
 
 
 }
+
 
 
 
