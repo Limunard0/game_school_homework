@@ -95,7 +95,7 @@ public class Main {
             playerMana = healMagicCost(playerName, playerMana, playerHealth);
 
             playerIsAlive = checkIfPlayerIsAlive(playerName, playerHealth, playerIsAlive);
-            playerIsAlive = checkIfPlayerIsAlive(playerName, playerHealth, playerIsAlive);
+
 
             System.out.println("=======================================");
 
