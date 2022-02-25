@@ -68,9 +68,9 @@ public class Main {
 
             monsterHealth = lightAttack(playerName, monsterName, playerStamina, monsterHealth, playerDamage, monsterDefense);
             playerIsAlive = checkIfPlayerIsAlive(playerName, playerHealth, playerIsAlive);
+            if (playerIsAlive == false) { break;}
             monsterIsAlive = checkIfMonsterIsAlive(monsterName, monsterHealth, monsterIsAlive);
-
-
+             if (monsterIsAlive == false) { break;}
             System.out.println("=======================================");
 
             // Event 2
@@ -80,7 +80,9 @@ public class Main {
 
             playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerDefense);
             monsterIsAlive = checkIfMonsterIsAlive(monsterName, monsterHealth, monsterIsAlive);
+            if (monsterIsAlive == false) { break;}
             playerIsAlive = checkIfPlayerIsAlive(playerName, playerHealth, playerIsAlive);
+            if (playerIsAlive == false) { break;}
 
 
             System.out.println("=======================================");
@@ -88,13 +90,14 @@ public class Main {
             // Event 3
 
             turn = turnCounter(turn);
-            ;
+
 
 
             playerHealth = healMagic(playerName, playerMana, playerHealth);
             playerMana = healMagicCost(playerName, playerMana, playerHealth);
 
             playerIsAlive = checkIfPlayerIsAlive(playerName, playerHealth, playerIsAlive);
+            if (playerIsAlive == false) { break;}
 
 
             System.out.println("=======================================");
@@ -107,7 +110,9 @@ public class Main {
 
             monsterHealth = lightAttack(playerName, monsterName, playerStamina, monsterHealth, playerDamage, monsterDefense);
             playerIsAlive = checkIfPlayerIsAlive(playerName, playerHealth, playerIsAlive);
+            if (playerIsAlive == false) { break;}
             monsterIsAlive = checkIfMonsterIsAlive(monsterName, monsterHealth, monsterIsAlive);
+            if (monsterIsAlive == false) { break;}
 
 
             System.out.println("=======================================");
@@ -120,7 +125,9 @@ public class Main {
 
             playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerDefense);
             monsterIsAlive = checkIfMonsterIsAlive(monsterName, monsterHealth, monsterIsAlive);
+            if (monsterIsAlive == false) { break;}
             playerIsAlive = checkIfPlayerIsAlive(playerName, playerHealth, playerIsAlive);
+            if (playerIsAlive == false) { break;}
 
 
             System.out.println("=======================================");
