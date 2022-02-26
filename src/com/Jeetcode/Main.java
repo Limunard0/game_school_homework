@@ -16,9 +16,11 @@ public class Main {
         int playerDefense;
         int playerDamage;
         int playerSpeed;
+        int playerShield;
         int playerStamina;
         boolean playerIsAlive;
         boolean playerMagicAbility;
+        boolean playerShieldActivation;
 
         // Monster
         String monsterName;
@@ -39,8 +41,10 @@ public class Main {
         playerDamage = 2;
         playerSpeed = 3;
         playerStamina = 10;
+        playerShield = 10;
         playerIsAlive = true;
         playerMagicAbility = true;
+        playerShieldActivation = false;
 
         // STATS FOR MONSTER
         monsterName = "Jozha";
@@ -66,23 +70,31 @@ public class Main {
             turn = turnCounter(turn);
 
 
-            monsterHealth = lightAttack(playerName, monsterName, playerStamina, monsterHealth, playerDamage, monsterDefense);
-            playerIsAlive = checkIfPlayerIsAlive(playerName, playerHealth, playerIsAlive);
-            if (playerIsAlive == false) { break;}
-            monsterIsAlive = checkIfMonsterIsAlive(monsterName, monsterHealth, monsterIsAlive);
-             if (monsterIsAlive == false) { break;}
+            monsterHealth = lightAttack(playerName, monsterName, playerStamina, monsterHealth, playerDamage);
+            playerIsAlive = checkIfIsAlive(playerName, playerHealth, playerIsAlive);
+            if (playerIsAlive == false) {
+                break;
+            }
+            monsterIsAlive = checkIfIsAlive(monsterName, monsterHealth, monsterIsAlive);
+            if (monsterIsAlive == false) {
+                break;
+            }
             System.out.println("=======================================");
 
             // Event 2
 
             turn = turnCounter(turn);
 
-
-            playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerDefense);
-            monsterIsAlive = checkIfMonsterIsAlive(monsterName, monsterHealth, monsterIsAlive);
-            if (monsterIsAlive == false) { break;}
-            playerIsAlive = checkIfPlayerIsAlive(playerName, playerHealth, playerIsAlive);
-            if (playerIsAlive == false) { break;}
+            playerShieldActivation = false;
+            playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
+            playerIsAlive = checkIfIsAlive(playerName, playerHealth, playerIsAlive);
+            if (playerIsAlive == false) {
+                break;
+            }
+            monsterIsAlive = checkIfIsAlive(monsterName, monsterHealth, monsterIsAlive);
+            if (monsterIsAlive == false) {
+                break;
+            }
 
 
             System.out.println("=======================================");
@@ -92,12 +104,13 @@ public class Main {
             turn = turnCounter(turn);
 
 
-
             playerHealth = healMagic(playerName, playerMana, playerHealth);
             playerMana = healMagicCost(playerName, playerMana, playerHealth);
 
-            playerIsAlive = checkIfPlayerIsAlive(playerName, playerHealth, playerIsAlive);
-            if (playerIsAlive == false) { break;}
+            playerIsAlive = checkIfIsAlive(playerName, playerHealth, playerIsAlive);
+            if (playerIsAlive == false) {
+                break;
+            }
 
 
             System.out.println("=======================================");
@@ -108,11 +121,15 @@ public class Main {
             turn = turnCounter(turn);
 
 
-            monsterHealth = lightAttack(playerName, monsterName, playerStamina, monsterHealth, playerDamage, monsterDefense);
-            playerIsAlive = checkIfPlayerIsAlive(playerName, playerHealth, playerIsAlive);
-            if (playerIsAlive == false) { break;}
-            monsterIsAlive = checkIfMonsterIsAlive(monsterName, monsterHealth, monsterIsAlive);
-            if (monsterIsAlive == false) { break;}
+            monsterHealth = lightAttack(playerName, monsterName, playerStamina, monsterHealth, playerDamage);
+            playerIsAlive = checkIfIsAlive(playerName, playerHealth, playerIsAlive);
+            if (playerIsAlive == false) {
+                break;
+            }
+            monsterIsAlive = checkIfIsAlive(monsterName, monsterHealth, monsterIsAlive);
+            if (monsterIsAlive == false) {
+                break;
+            }
 
 
             System.out.println("=======================================");
@@ -123,12 +140,55 @@ public class Main {
             turn = turnCounter(turn);
 
 
-            playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerDefense);
-            monsterIsAlive = checkIfMonsterIsAlive(monsterName, monsterHealth, monsterIsAlive);
-            if (monsterIsAlive == false) { break;}
-            playerIsAlive = checkIfPlayerIsAlive(playerName, playerHealth, playerIsAlive);
-            if (playerIsAlive == false) { break;}
+            playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
+            playerIsAlive = checkIfIsAlive(playerName, playerHealth, playerIsAlive);
+            if (playerIsAlive == false) {
+                break;
+            }
+            monsterIsAlive = checkIfIsAlive(monsterName, monsterHealth, monsterIsAlive);
+            if (monsterIsAlive == false) {
+                break;
+            }
 
+
+            System.out.println("=======================================");
+
+
+            // Event 6
+
+            turn = turnCounter(turn);
+
+
+            playerShieldActivation = blockAttack(playerName, playerShield, playerShieldActivation);
+            playerIsAlive = checkIfIsAlive(playerName, playerHealth, playerIsAlive);
+            if (playerIsAlive == false) {
+                break;
+            }
+            monsterIsAlive = checkIfIsAlive(monsterName, monsterHealth, monsterIsAlive);
+            if (monsterIsAlive == false) {
+                break;
+            }
+
+
+            System.out.println("=======================================");
+
+
+            // Event 7
+
+            turn = turnCounter(turn);
+
+
+            playerShield = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
+            playerIsAlive = checkIfIsAlive(playerName, playerHealth, playerIsAlive);
+            if (playerIsAlive == false) {
+                break;
+            }
+            monsterIsAlive = checkIfIsAlive(monsterName, monsterHealth, monsterIsAlive);
+            if (monsterIsAlive == false) {
+                break;
+            }
+
+            playerShieldActivation = false;
 
             System.out.println("=======================================");
 
@@ -139,15 +199,15 @@ public class Main {
 
     //========================= G A M E   F U N C T I O N S =========================================
 
-    public static int lightAttack(String attackerName, String defenderName, int attackerStamina, int defenderHealth, int attackerDamage, int defenderDefense) {
+    public static int lightAttack(String attackerName, String defenderName, int attackerStamina, int defenderHealth, int attackerDamage) {
         System.out.println(attackerName + " Your turn! ");
         System.out.println(attackerName + " Tries to light attack " + defenderName);
 
 
-        defenderHealth -= (attackerDamage - defenderDefense);
+        defenderHealth -= attackerDamage;
 
 
-        System.out.println(defenderName + " lost " + (attackerDamage - defenderDefense) + " Health points! ");
+        System.out.println(defenderName + " lost " + attackerDamage + " Health points! ");
         System.out.println(defenderName + " now has " + defenderHealth + " Health points! ");
 
         return defenderHealth;
@@ -155,17 +215,33 @@ public class Main {
 
     }
 
-    public static int heavyAttack(String attackerName, String defenderName, int attackerStamina, int defenderHealth, int attackerDamage, int defenderDefense) {
-        System.out.println(attackerName + " your turn! ");
+    public static int heavyAttack(String attackerName, String defenderName, int attackerStamina, int defenderHealth, int attackerDamage, int defenderShield, boolean defenderShieldActivation) {
+
+        if (defenderShieldActivation = true) {
+            System.out.println(attackerName + " your turn! ");
+            System.out.println(attackerName + " tries to heavy attack " + defenderName);
+
+            System.out.println(defenderName + " Block attack with his shield!");
+
+            defenderShield -= attackerDamage;
+
+            System.out.println(defenderName + " lost " + (attackerDamage * 2) + " shield! ");
+            System.out.println(defenderName + " now has " + defenderShield + " shield ");
+
+            return defenderShield;
+
+
+        } else
+            System.out.println(attackerName + " your turn! ");
         System.out.println(attackerName + " tries to heavy attack " + defenderName);
 
+        defenderHealth -= (attackerDamage * 2);
 
-        defenderHealth -= ((attackerDamage * 2) - defenderDefense);
-
-        System.out.println(defenderName + " lost " + ((attackerDamage * 2) - defenderDefense) + " health points! ");
-        System.out.println(defenderName + " now has " + defenderHealth + " health points!");
+        System.out.println(defenderName + " lost " + (attackerDamage * 2) + " health points! ");
+        System.out.println(defenderName + " now has " + defenderHealth + " health points ");
 
         return defenderHealth;
+
 
     }
 
@@ -216,27 +292,39 @@ public class Main {
     }
 
 
-    public static boolean checkIfPlayerIsAlive(String playerName, int playerHealth, boolean playerIsAlive) {
+    public static boolean checkIfIsAlive(String subjectName, int subjectHealth, boolean subjectIsAlive) {
 
 
-        if (playerHealth <= 0) {
-            System.out.println(playerName + " is dead! ");
-            return playerIsAlive = false;
+        if (subjectHealth <= 0) {
+            System.out.println(subjectName + " is dead! ");
+            return subjectIsAlive = false;
         } else
-            return playerIsAlive = true;
+            return subjectIsAlive = true;
     }
 
-    public static boolean checkIfMonsterIsAlive(String monsterName, int monsterHealth, boolean monsterIsAlive) {
 
-        if (monsterHealth <= 0) {
-            System.out.println(monsterName + " is dead! ");
-            return monsterIsAlive = false;
+    public static boolean blockAttack(String blockerName, int defenderShield, boolean blockerShieldActivaton) {
+
+        if (defenderShield <= 0) {
+            System.out.println(blockerName + " Don't have a shield to block attack! ");
+            return blockerShieldActivaton = false;
         } else
 
-            return monsterIsAlive = true;
+
+            System.out.println(blockerName + " is your turn ! ");
+
+        System.out.println(blockerName + " Put his shield up for the next Attack! ");
+
+
+        return blockerShieldActivaton = true;
+
+
     }
 
 }
+
+
+
 
 
 
