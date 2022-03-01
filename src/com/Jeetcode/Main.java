@@ -231,16 +231,17 @@ public class Main {
             return defenderShield;
 
 
-        } else
+        } else {
             System.out.println(attackerName + " your turn! ");
-        System.out.println(attackerName + " tries to heavy attack " + defenderName);
+            System.out.println(attackerName + " tries to heavy attack " + defenderName);
 
-        defenderHealth -= (attackerDamage * 2);
+            defenderHealth -= (attackerDamage * 2);
 
-        System.out.println(defenderName + " lost " + (attackerDamage * 2) + " health points! ");
-        System.out.println(defenderName + " now has " + defenderHealth + " health points ");
+            System.out.println(defenderName + " lost " + (attackerDamage * 2) + " health points! ");
+            System.out.println(defenderName + " now has " + defenderHealth + " health points ");
 
-        return defenderHealth;
+            return defenderHealth;
+        }
 
 
     }
@@ -254,17 +255,18 @@ public class Main {
         if (playerMana < 1 || playerHealth <= 0) {
             System.out.println(playerName + " Can't cast the spell ");
             return playerMana;
-        } else
+        } else {
             System.out.println(playerName + " Use health magic spell ");
 
 
-        int healthMagic = playerHealth + 1;
+            int healthMagic = playerHealth + 1;
 
 
-        System.out.println(playerName + " Have healed himself with a magic ");
-        System.out.println(playerName + " Has gain +1 HP ");
-        System.out.println(playerName + " now has " + healthMagic + " health !");
-        return healthMagic;
+            System.out.println(playerName + " Have healed himself with a magic ");
+            System.out.println(playerName + " Has gain +1 HP ");
+            System.out.println(playerName + " now has " + healthMagic + " health !");
+            return healthMagic;
+        }
     }
 
 
@@ -272,14 +274,15 @@ public class Main {
         if (playerMana <= 0 || playerHealth <= 0) {
             System.out.println(playerName + " Don't have enough mana ");
             return playerHealth;
-        } else
+        } else {
 
 
             playerMana -= 1;
 
-        System.out.println(playerName + " have " + playerMana + " mana ");
+            System.out.println(playerName + " have " + playerMana + " mana ");
 
-        return playerMana;
+            return playerMana;
+        }
 
     }
 
@@ -298,8 +301,9 @@ public class Main {
         if (subjectHealth <= 0) {
             System.out.println(subjectName + " is dead! ");
             return subjectIsAlive = false;
-        } else
+        } else {
             return subjectIsAlive = true;
+        }
     }
 
 
@@ -308,15 +312,16 @@ public class Main {
         if (defenderShield <= 0) {
             System.out.println(blockerName + " Don't have a shield to block attack! ");
             return blockerShieldActivaton = false;
-        } else
+        } else {
 
 
             System.out.println(blockerName + " is your turn ! ");
 
-        System.out.println(blockerName + " Put his shield up for the next Attack! ");
+            System.out.println(blockerName + " Put his shield up for the next Attack! ");
 
 
-        return blockerShieldActivaton = true;
+            return blockerShieldActivaton = true;
+        }
 
 
     }
