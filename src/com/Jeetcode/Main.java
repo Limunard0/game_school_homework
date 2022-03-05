@@ -85,8 +85,11 @@ public class Main {
 
             turn = turnCounter(turn);
 
-            playerShieldActivation = false;
-            playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
+            if (playerShieldActivation == false) {
+                playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
+            } else if (playerShieldActivation == true) {
+                playerShield = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
+            }
             playerIsAlive = checkIfIsAlive(playerName, playerHealth, playerIsAlive);
             if (playerIsAlive == false) {
                 break;
@@ -178,7 +181,11 @@ public class Main {
             turn = turnCounter(turn);
 
 
-            playerShield = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
+            if (playerShieldActivation == false) {
+                playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
+            } else if (playerShieldActivation == true) {
+                playerShield = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
+            }
             playerIsAlive = checkIfIsAlive(playerName, playerHealth, playerIsAlive);
             if (playerIsAlive == false) {
                 break;
@@ -217,7 +224,7 @@ public class Main {
 
     public static int heavyAttack(String attackerName, String defenderName, int attackerStamina, int defenderHealth, int attackerDamage, int defenderShield, boolean defenderShieldActivation) {
 
-        if (defenderShieldActivation = true) {
+        if (defenderShieldActivation == true) {
             System.out.println(attackerName + " your turn! ");
             System.out.println(attackerName + " tries to heavy attack " + defenderName);
 
