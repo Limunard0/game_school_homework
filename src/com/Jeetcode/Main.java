@@ -85,11 +85,9 @@ public class Main {
 
             turn = turnCounter(turn);
 
-            if (playerShieldActivation == false) {
-                playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
-            } else if (playerShieldActivation == true) {
-                playerShield = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
-            }
+
+            playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
+
             playerIsAlive = checkIfIsAlive(playerName, playerHealth, playerIsAlive);
             if (playerIsAlive == false) {
                 break;
@@ -181,11 +179,8 @@ public class Main {
             turn = turnCounter(turn);
 
 
-            if (playerShieldActivation == false) {
-                playerHealth = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
-            } else if (playerShieldActivation == true) {
-                playerShield = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
-            }
+            playerShield = heavyAttack(monsterName, playerName, monsterStamina, playerHealth, monsterDamage, playerShield, playerShieldActivation);
+
             playerIsAlive = checkIfIsAlive(playerName, playerHealth, playerIsAlive);
             if (playerIsAlive == false) {
                 break;
